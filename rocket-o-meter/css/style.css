@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#rocket {
+    font-size: 5em;
+    transition: transform 0.1s;
+    position: relative;
+}
+
+#message {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+/* Create a container for the rocket that won't shake */
+.rocket-container {
+    position: relative;
+    z-index: 20; /* Keep rocket above other elements */
+    margin: 20px 0;
+}
+
+.restart-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.restart-button:hover {
+    background-color: #45a049;
+}
+
+.category {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #ff6b6b;
+}
+
+/* Add these styles for particles and shake effect */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10; /* Behind the rocket but above other elements */
+    opacity: 1;
+    font-size: 2em; /* Base size is already larger */
+    filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.7)); /* Glow effect */
+}
+
+/* Screen shake animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(20px); }
+}
+
+
+.shake {
+    animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Add transition to the rocket for smoother animation */
+.rocket {
+    transition: transform 0.1s ease-out;
+    font-size: 3em; /* Make the rocket bigger too */
+}
+
