@@ -1,5 +1,3 @@
-// This file contains the JavaScript logic for the rocket launch game.
-
 let launchCount = 0;
 let timer;
 let countdownInterval;
@@ -50,6 +48,16 @@ function calculateScore() {
 
 function animateRocket() {
     const rocket = document.getElementById('rocket');
+    const container = document.querySelector('.container');
+    
+    // Apply shake to the container
+    container.classList.add('shake');
+    
+    // Remove shake after animation completes
+    setTimeout(() => {
+        container.classList.remove('shake');
+    }, 300);
+    
     rocket.style.transition = 'transform 0.2s ease-out';
     rocket.style.transform = 'translateY(-80px)';
     
@@ -63,14 +71,7 @@ function animateRocket() {
 }
 
 function createParticles() {
-    const rocket = document.getElementById('rocket');
-    const container = document.querySelector('.container');
-    const rocketRect = rocket.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    
-    // Calculate position relative to the container
-    const x = rocketRect.left - containerRect.left + rocketRect.width / 2;
-    const y = rocketRect.bottom - containerRect.top - 5;
+    const rocketContainer = document.querySelector('.rocket-container');
     
     // Create 3-5 particles
     const particleCount = Math.floor(Math.random() * 3) + 3;
@@ -82,26 +83,29 @@ function createParticles() {
         // Randomly choose between fire and smoke emojis
         particle.textContent = Math.random() > 0.4 ? '🔥' : '💨';
         
-        // Position at the bottom of rocket with minimal horizontal variance
-        particle.style.left = `${x - 10 + Math.random() * 20}px`;
-        particle.style.top = `${y}px`;
+        // Position particles centered at the bottom of rocket
+        particle.style.position = 'absolute';
+        particle.style.left = `calc(50% + ${Math.random() * 20 - 10}px)`; // Center ± random offset
+        particle.style.top = 'calc(100% - 10px)'; // Bottom of container with small offset
+        particle.style.transform = 'translateX(-50%)'; // Center the particle itself
         
-        // Consistent particle size
-        particle.style.fontSize = '1.8em';
+        // Random particle size between 1em and 5em
+        const randomSize = 1 + Math.random() * 4;
+        particle.style.fontSize = `${randomSize}em`;
         
-        // Add to the container
-        container.appendChild(particle);
+        // Add to the rocket container
+        rocketContainer.appendChild(particle);
         
         // Animate the particle
         setTimeout(() => {
             // Only move downwards, no horizontal drift
             particle.style.transition = 'all 1s ease-out';
-            particle.style.top = `${y + 40 + Math.random() * 20}px`;
+            particle.style.top = `calc(100% + ${30 + Math.random() * 20}px)`;
             particle.style.opacity = '0';
             
             // Remove the particle after animation completes
             setTimeout(() => {
-                container.removeChild(particle);
+                rocketContainer.removeChild(particle);
             }, 1000);
         }, 10);
     }
