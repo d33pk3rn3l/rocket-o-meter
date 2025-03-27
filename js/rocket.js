@@ -21,6 +21,20 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+// Add touch support for mobile devices
+document.addEventListener('touchstart', (event) => {
+    if (timeLeft > 0 && gameActive) {
+        event.preventDefault(); // Prevent default touch behavior
+        if (!timer) {
+            startTimer();
+            startCountdown();
+        }
+        launchCount++;
+        animateRocket();
+        updateLaunchCount();
+    }
+});
+
 function startTimer() {
     timer = setTimeout(() => {
         endGame();
