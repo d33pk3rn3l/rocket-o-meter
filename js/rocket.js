@@ -43,7 +43,8 @@ function updateLaunchCount() {
 }
 
 function calculateScore() {
-    return Math.min(10, Math.log10(launchCount + 1) * 4.20); // Exponential mapping
+    // Linear mapping from 0-130 launches to 1-10 score
+    return 1 + (launchCount / 130) * 9;
 }
 
 function animateRocket() {
